@@ -18,8 +18,15 @@ spec:
         tier: backend
     spec:
       containers:
-      - name: reticula-net
-        image: emilioemmanuel05/reticula:latest
+      - image: emilioemmanuel05/reticula:latest
+        name: reticulanet
         ports: 
           - containerPort: 8001
-            hostPort: 8001
+            hostPort: 8002
+        volumeMounts:
+          - name: reticula-persistent
+            mountPath: /var/lib/net
+      volumes:
+        - name: reticula-persistent
+          persistentVolumeClaim:
+            claimName: reticula-volume-claim
